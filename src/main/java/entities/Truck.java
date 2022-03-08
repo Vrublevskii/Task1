@@ -21,6 +21,8 @@ public class Truck {
         return cargo;
     }
 
+
+    @SuppressWarnings("unused")
     public int getCargoLimit() {
         return cargoWeightLimit;
     }
@@ -29,9 +31,9 @@ public class Truck {
         return cargoWeight;
     }
 
-    public void addCargoWeight(int cargoWeight) throws RuntimeException {
-        if (this.cargoWeight + cargoWeight <= this.cargoWeightLimit) {
-            this.cargoWeight += cargoWeight;
+    public void addCargoWeight(Coffee coffee) throws RuntimeException {
+        if (this.cargoWeight + coffee.getWeightWithContainer() <= this.cargoWeightLimit) {
+            this.cargoWeight += coffee.getWeightWithContainer();
         } else {
             throw new RuntimeException();
         }
