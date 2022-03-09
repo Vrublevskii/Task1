@@ -2,10 +2,10 @@ package entities;
 
 import constants.CoffeeContainers;
 import entities.coffee.*;
+import exeptions.OverloadException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.function.ThrowingRunnable;
 
 public class TruckTest {
 
@@ -31,7 +31,7 @@ public class TruckTest {
         Assert.assertEquals(600, truck.getCargoWeight());
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test(expected = OverloadException.class)
     public void addCargoWeightMoreThenMaxTest(){
         truck.addCargoWeight(arusha);
         truck.addCargoWeight(blueMountain);

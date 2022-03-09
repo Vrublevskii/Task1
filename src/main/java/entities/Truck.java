@@ -1,6 +1,7 @@
 package entities;
 
 import entities.coffee.Coffee;
+import exeptions.OverloadException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,6 @@ public class Truck {
         return cargo;
     }
 
-
     @SuppressWarnings("unused")
     public int getCargoLimit() {
         return cargoWeightLimit;
@@ -31,11 +31,11 @@ public class Truck {
         return cargoWeight;
     }
 
-    public void addCargoWeight(Coffee coffee) throws RuntimeException {
+    public void addCargoWeight(Coffee coffee) throws OverloadException {
         if (this.cargoWeight + coffee.getWeightWithContainer() <= this.cargoWeightLimit) {
             this.cargoWeight += coffee.getWeightWithContainer();
         } else {
-            throw new RuntimeException();
+            throw new OverloadException();
         }
     }
 }

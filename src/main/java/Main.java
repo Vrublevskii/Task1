@@ -2,9 +2,7 @@ import constants.CoffeeContainers;
 import entities.Truck;
 import entities.coffee.Coffee;
 import entities.coffee.Java;
-import worker.TruckWorker;
-
-import java.util.ArrayList;
+import services.TruckService;
 import java.util.Collections;
 import java.util.List;
 
@@ -18,20 +16,21 @@ public class Main {
         Coffee java1 = new Java(110, BAG, 200);
         Coffee java2 = new Java(120, JAR, 200);
         Truck truck = new Truck(2000);
-        TruckWorker truckWorker = new TruckWorker(truck);
+        TruckService truckService = new TruckService(truck);
 
 
-        truckWorker.addIntoTrack(java2);
-        truckWorker.addIntoTrack(java);
-        truckWorker.addIntoTrack(java1);
+        truckService.addIntoTrack(java2);
+        truckService.addIntoTrack(java);
+        truckService.addIntoTrack(java1);
 
 
-        List<Coffee> cargo = truck.getCargo();
+        List<Coffee> cargo = truckService.getTruck().getCargo();
 
         for (Coffee coffee : cargo) {
             System.out.println(coffee.getCoffeePrice());
             System.out.println(coffee.getPriceTotal());
         }
+
         Collections.sort(cargo);
         System.out.println(cargo.isEmpty());
 
@@ -43,13 +42,9 @@ public class Main {
 
         System.out.println(CoffeeContainers.JAR.getContainerName());
 
-//        for (Coffee coffee : cargo) {
-//            System.out.println(coffee.getPriceForWeight());
-//        }
-
         System.out.println("\n\n\n");
 
-        ArrayList<Coffee> coffees = truckWorker.searchCargo(0.50, 0.58);
+        List<Coffee> coffees = truckService.searchCargo(0.50, 0.58);
         for (Coffee coffee : coffees) {
             System.out.println(coffee.getWeightWithContainer());
         }

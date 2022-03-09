@@ -1,17 +1,18 @@
-package worker;
+package services;
 
 import entities.Truck;
 import entities.coffee.Coffee;
+import exeptions.OverloadException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("ClassCanBeRecord")
-public class TruckWorker {
+public class TruckService {
 
     private final Truck truck;
 
-    public TruckWorker(Truck truck) {
+    public TruckService(Truck truck) {
         this.truck = truck;
     }
 
@@ -23,13 +24,15 @@ public class TruckWorker {
         try {
             truck.addCargoWeight(coffee);
             truck.getCargo().add(coffee);
-        } catch (RuntimeException e) {
+        } catch (OverloadException e) {
+            System.out.flush();
             System.err.println("Not enough space");
+            System.err.flush();
         }
     }
 
-    public ArrayList<Coffee> searchCargo(double priceForWeightMin, double priceForWeightMax) {
-        ArrayList<Coffee> selectedCoffee = new ArrayList<>();
+    public List<Coffee> searchCargo(double priceForWeightMin, double priceForWeightMax) {
+        List<Coffee> selectedCoffee = new ArrayList<>();
         for (Coffee coffee : truck.getCargo()) {
             double priceForWeight = coffee.getPriceForWeight();
             if (priceForWeight >= priceForWeightMin && priceForWeight <= priceForWeightMax) {
